@@ -27,13 +27,13 @@ export class PostagemController {
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
-    create(@Body() postagem: Postagem): Promise<Postagem>{
+    create(@Body() postagem: Postagem): Promise<Postagem> {
         return this.postagemService.create(postagem);
     }
 
     @Put()
     @HttpCode(HttpStatus.OK)
-    update(@Body() postagem: Postagem): Promise<Postagem>{
+    update(@Body() postagem: Postagem): Promise<Postagem> {
         return this.postagemService.update(postagem);
     }
 

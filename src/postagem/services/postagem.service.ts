@@ -4,58 +4,58 @@ import { Postagem } from "../entities/postagem.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
-export class PostagemService{
+export class PostagemService {
 
     constructor(
         @InjectRepository(Postagem)
         private PostagemRepository: Repository<Postagem>
-    ){}
+    ) { }
 
-    async findAll(): Promise<Postagem[]>{
+    async findAll(): Promise<Postagem[]> {
         return await this.PostagemRepository.find()
     }
 
-    async findById(id: number): Promise<Postagem>{
+    async findById(id: number): Promise<Postagem> {
         let buscaPostagem = await this.PostagemRepository.findOne({
-            where:{
+            where: {
                 id
             }
         });
 
-        if(!buscaPostagem){
+        if (!buscaPostagem) {
             throw new HttpException("Postagem não foi encontrada!", HttpStatus.NOT_FOUND);
 
         };
         return buscaPostagem;
     }
 
-    async findByTitulo(titulo: string): Promise<Postagem[]>{
+    async findByTitulo(titulo: string): Promise<Postagem[]> {
         return await this.PostagemRepository.find({
-            where:{
+            where: {
                 titulo: ILike(`%${titulo}%`)
             }
         })
     }
 
-    async create(postagem: Postagem): Promise<Postagem>{
+    async create(postagem: Postagem): Promise<Postagem> {
         return await this.PostagemRepository.save(postagem);
     }
 
-    async update(postagem: Postagem): Promise<Postagem>{
+    async update(postagem: Postagem): Promise<Postagem> {
 
         let buscaPostagem = await this.findById(postagem.id);
 
-        if(!buscaPostagem || !postagem.id){
+        if (!buscaPostagem || !postagem.id) {
             throw new HttpException("A Postagem não foi encontrada!", HttpStatus.NOT_FOUND);
         }
 
         return await this.PostagemRepository.save(postagem);
     }
 
-    async delete(id: number): Promise<DeleteResult>{
+    async delete(id: number): Promise<DeleteResult> {
         let buscaPostagem = await this.findById(id);
 
-        if(!buscaPostagem){
+        if (!buscaPostagem) {
             throw new HttpException("Postagem não foi encontrada!", HttpStatus.NOT_FOUND);
 
         };

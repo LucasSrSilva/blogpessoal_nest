@@ -11,4 +11,4 @@ import { PostagemController } from "./controllers/postagem.controller";
     exports: [TypeOrmModule]
 })
 
-export class PostagemModule {}
+export class PostagemModule { }
